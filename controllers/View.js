@@ -17,19 +17,19 @@ function strForCell (value, x, y, cursor) {
 	return `${colour}${character}${colours.NONE}`;
 }
 
+function identical(a, b) {
+	let r = true;
+	a.forEach((row, y) => {
+		row.forEach((col, x) => {
+			if (a[y][x] !== b[y][x])
+				r = false;
+		});
+	});
+	return r;
+}
+
 class View {
 	static renderSuccess (game) {
-		function identical(a, b) {
-			let r = true;
-			a.forEach((row, y) => {
-				row.forEach((col, x) => {
-					if (a[y][x] !== b[y][x])
-						r = false;
-				});
-			});
-			return r;
-		}
-
 		let result = "Status: ",
 			status = identical(game.currentPuzzle, game.currentSolution)
 				? `${colours.GREEN}Solved!${colours.NONE}`

@@ -39,10 +39,11 @@ screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
 // Gameplay
 let game   = new Game(),
 	cursor = new Cursor();
-screen.key(['up'], () => { cursor.up(); render(); });
-screen.key(['down'], () => { cursor.down(); render(); });
-screen.key(['left'], () => { cursor.left(); render(); });
-screen.key(['right'], () => { cursor.right(); render(); });
+screen.key(['up', 'w'], () => { cursor.up(); render(); });
+screen.key(['down', 's'], () => { cursor.down(); render(); });
+screen.key(['left', 'a'], () => { cursor.left(); render(); });
+screen.key(['right', 'd'], () => { cursor.right(); render(); });
+screen.key(['backspace'], () => { game.clear(); render(); });
 screen.key(['space', 'enter'], () => { game.toggle(cursor.x, cursor.y); render(); });
 
 // Start a random game.
