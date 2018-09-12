@@ -23,6 +23,28 @@ class Data {
 
 		return result;
 	}
+
+	static loadRandom (path) {
+		function rand (arr) {
+			return arr[Math.floor(Math.random() * arr.length)];
+		}
+
+		let paths = ["3x3", "12x12"],
+			midPath = path || rand(paths),
+			file = rand(Data.files(basePath + midPath));
+		return Data.load(midPath + "/" + file);
+	}
+
+	static loadRandomFromDifficulty (n) {
+		let paths = ["3x3", "12x12"],
+			path  = paths[n] || paths[0];
+		return Data.loadRandom(path);
+	}
+
+	static files (dir) {
+		return fs.readdirSync(dir)
+			.filter(s => s.substr(-4) === ".bmp");
+	}
 }
 
 module.exports = Data;

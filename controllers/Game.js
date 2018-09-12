@@ -10,8 +10,9 @@ class Game {
 		this.colHints;
 	}
 
-	loadRandom () {
-		this.currentPuzzle = Data.load("12x12/diamond.bmp");
+	loadRandom (d) {
+		if (d === undefined) d = 1;
+		this.currentPuzzle = Data.loadRandomFromDifficulty(d);
 		this.currentSolution = this.copy(this.currentPuzzle);
 		this.clear();
 	}
