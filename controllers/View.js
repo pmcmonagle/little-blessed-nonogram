@@ -28,6 +28,18 @@ function identical(a, b) {
 	return r;
 }
 
+function pad (grid, len) {
+	let result = [],
+		longest = len || grid.reduce((acc, x) => Math.max(acc, x.length), 0);
+	grid.forEach(row => {
+		let r = row.slice();
+		while (r.length < longest) { r.unshift(0); }
+		result.push(r);
+	});
+
+	return result;
+}
+
 class View {
 	static renderSuccess (game) {
 		let result = "Status: ",
@@ -66,27 +78,24 @@ class View {
 		});
 		return result;
 	}
-	static renderColHints (game) {
+
+	static renderColHints (game, size) {
 		let result = "",
-			values = game.getColValues(game.currentPuzzle),
-			actual = game.getColValues(game.currentSolution),
-			longest = values.reduce((acc, x) => Math.max(acc, x.length), 0),
-			offset = 0;
-		for (let j = 0; j < longest; j++) {
-			for (let i = 0; i < values.length; i++) {
-				if (values[i].length < longest - offset) {
+			values = pad(game.getColValues(game.currentPuzzle), size),
+			actual = pad(game.getColValues(game.currentSolution), size);
+		for (let x = 0; x < values[0].length; x++) {
+			for (let y = 0; y < values.length; y++) {
+				if (values[y][x] === 0 && x < values[0].length - 1) {
 					result += "  ";
 					continue;
 				}
 
-				let n = j - (longest - values[i].length);
-				if (values[i][n] === actual[i][n])
-					result += `${colours.GREEN}${values[i][n]}${colours.NONE} `;
+				if (values[y][x] === actual[y][x])
+					result += `${colours.GREEN}${values[y][x]}${colours.NONE} `;
 				else
-					result += values[i][n].toString() + " ";
+					result += values[y][x].toString() + " ";
 			}
 			result += "\n";
-			offset++;
 		}
 
 		return result;

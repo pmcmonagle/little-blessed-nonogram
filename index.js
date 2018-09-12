@@ -8,23 +8,23 @@ const Game     = require("./controllers/Game"),
 	  screen   = Blessed.screen({ smartCSR: true }),
 	  gameView = Blessed.box({
 		  left:   '20%',
-		  top:    '20%',
+		  top:    7,
 		  width:  '80%',
-		  height: '80%',
+		  height: '70%',
 		  padding: { left: 1 }
 	  }),
 	  topView = Blessed.Box({
 		  left:   '20%',
 		  top:    '0%',
 		  width:  '100%',
-		  height: '20%',
-		  border: { type: 'bg' },
+		  height: 6,
+		  padding: { left: 1 },
 		  align: 'left',
-		  valign: 'bottom'
+		  valign: 'top'
 	  }),
 	  leftView = Blessed.Box({
 		  left:   '0%',
-		  top:    '20%',
+		  top:    7,
 		  width:  '20%',
 		  height: '100%',
 		  padding: { right: 1 },
@@ -32,9 +32,9 @@ const Game     = require("./controllers/Game"),
 		  valign: 'top'
 	  });
 
-screen.append(gameView);
 screen.append(leftView);
 screen.append(topView);
+screen.append(gameView);
 screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
 
 // Gameplay
@@ -56,7 +56,7 @@ cursor.setPuzzle(game.currentPuzzle);
 render();
 
 function render () {
-	topView.setContent(View.renderColHints(game));
+	topView.setContent(View.renderColHints(game, topView.height));
 	leftView.setContent(View.renderRowHints(game));
 	gameView.setContent(
 		View.renderPuzzle(game, cursor) + "\n\n" +
