@@ -1,5 +1,7 @@
 'use strict';
 
+const Data = require("./Data");
+
 class Game {
 	constructor () {
 		this.currentPuzzle;
@@ -9,7 +11,7 @@ class Game {
 	}
 
 	loadRandom () {
-		this.currentPuzzle = Game.DEBUG_DATA;
+		this.currentPuzzle = Data.load("12x12/diamond.bmp");
 		this.currentSolution = this.copy(this.currentPuzzle);
 		this.clear();
 	}
