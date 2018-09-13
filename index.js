@@ -49,6 +49,7 @@ screen.key(['space', 'enter'], () => { game.toggle(cursor.x, cursor.y); render()
 // Difficulty
 screen.key(['`'], () => { game.loadRandom(0); render(); });
 screen.key(['1'], () => { game.loadRandom(1); render(); });
+screen.key(['2'], () => { game.loadRandom(2); render(); });
 
 // Start a random game.
 game.loadRandom();

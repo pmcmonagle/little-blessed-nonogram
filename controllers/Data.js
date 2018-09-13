@@ -2,7 +2,8 @@
 
 const fs       = require("fs"),
 	  bmp      = require("bmp-js"),
-	  basePath = "puzzles/";
+	  basePath = "puzzles/",
+	  folders  = ["3x3", "12x12", "20x15"];
 
 class Data {
 	static load (file) {
@@ -29,14 +30,14 @@ class Data {
 			return arr[Math.floor(Math.random() * arr.length)];
 		}
 
-		let paths = ["3x3", "12x12"],
+		let paths = folders,
 			midPath = path || rand(paths),
 			file = rand(Data.files(basePath + midPath));
 		return Data.load(midPath + "/" + file);
 	}
 
 	static loadRandomFromDifficulty (n) {
-		let paths = ["3x3", "12x12"],
+		let paths = folders,
 			path  = paths[n] || paths[0];
 		return Data.loadRandom(path);
 	}
