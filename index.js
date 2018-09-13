@@ -47,14 +47,17 @@ screen.key(['right', 'd'], () => { cursor.right(); render(); });
 screen.key(['backspace'], () => { game.clear(); render(); });
 screen.key(['space', 'enter'], () => { game.toggle(cursor.x, cursor.y); render(); });
 // Difficulty
-screen.key(['`'], () => { game.loadRandom(0); render(); });
-screen.key(['1'], () => { game.loadRandom(1); render(); });
-screen.key(['2'], () => { game.loadRandom(2); render(); });
+screen.key(['`'], () => { loadNew(0); });
+screen.key(['1'], () => { loadNew(1); });
+screen.key(['2'], () => { loadNew(2); });
 
-// Start a random game.
-game.loadRandom();
-cursor.setPuzzle(game.currentPuzzle);
-render();
+// Start a new random game.
+loadNew(1);
+function loadNew(n) {
+	game.loadRandom(n);
+	cursor.setPuzzle(game.currentPuzzle);
+	render();
+}
 
 function render () {
 	topView.setContent(View.renderColHints(game, topView.height));
